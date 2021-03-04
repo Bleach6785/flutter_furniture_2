@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_furniture_2/custom_indicator.dart';
 import 'package:flutter_furniture_2/item_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_furniture_2/product_details.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -136,62 +137,75 @@ class _HomePageState extends State<HomePage>
                   childAspectRatio: .77,
                 ),
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(16.0),
-                      vertical: ScreenUtil().setWidth(16.0),
-                    ),
-                    // width: ScreenUtil().setWidth(144.0),
-                    // height: ScreenUtil().setHeight(250.0),
-                    decoration: BoxDecoration(
-                      color: items[index].color,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: ScreenUtil().setHeight(30.0),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ItemDetails(item: items[index]),
+                          ));
+                    },
+                    child: Hero(
+                      tag: items[index].name,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(16.0),
+                          vertical: ScreenUtil().setWidth(16.0),
                         ),
-                        Image.asset(
-                          items[index].imagePath,
-                          width: double.infinity,
-                          height: ScreenUtil().setHeight(100.0),
+                        // width: ScreenUtil().setWidth(144.0),
+                        // height: ScreenUtil().setHeight(250.0),
+                        decoration: BoxDecoration(
+                          color: items[index].color,
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(30.0),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(16.0),
-                          ),
-                          child: Text(
-                            items[index].name,
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(18.0),
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF3D3C3C),
-                              height: 1.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: ScreenUtil().setHeight(30.0),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(12.0),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(16.0),
-                          ),
-                          child: Text(
-                            "\$${items[index].price}",
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setHeight(20.0),
-                              fontWeight: FontWeight.w700,
-                              color: items[index].priceColor,
+                            Image.asset(
+                              items[index].imagePath,
+                              width: double.infinity,
+                              height: ScreenUtil().setHeight(100.0),
                             ),
-                          ),
+                            SizedBox(
+                              height: ScreenUtil().setHeight(30.0),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: ScreenUtil().setWidth(16.0),
+                              ),
+                              child: Text(
+                                items[index].name,
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(18.0),
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF3D3C3C),
+                                  height: 1.2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: ScreenUtil().setHeight(12.0),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: ScreenUtil().setWidth(16.0),
+                              ),
+                              child: Text(
+                                "\$${items[index].price}",
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setHeight(20.0),
+                                  fontWeight: FontWeight.w700,
+                                  color: items[index].priceColor,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   );
                 },
